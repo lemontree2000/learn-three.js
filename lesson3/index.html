@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="../lib/three.js"></script>
+  <script src="../lib/Detector.js"></script>
+  <script>
+
+
+if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+    var container;
+
+    var camera, scene, renderer;
+
+    var mesh, lightMesh, geometry;
+    var spheres = [];
+
+    var directionalLight, pointLight;
+    var zoom=0;
+    var mouseX = 0, mouseY = 0;
+
+    var windowHalfX = window.innerWidth / 2;
+    var windowHalfY = window.innerHeight / 2;
+
+    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    document.addEventListener( 'mousewheel', onMouseWheel, false);
+
+    init();
+    animate();
+
+    function init() {
+
+        container = document.createElement( 'div' );
+        document.body.appendChild( container );
+
+        camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 100000 );
+        camera.position.z = 3200;
+
+        scene = new THREE.Scene();
+        scene.background = new THREE.CubeTextureLoader()
+                // .setPath( 'textures/cube/Park3Med/' )
+                .load([
+        'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/RT.jpg',
+        'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/LF.jpg',
+        'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/TP.jpg',
+        'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/BT.jpg',
+        'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/BK.jpg',
+        'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/FR.jpg'
+      ]);
+
+        var geometry = new THREE.SphereBufferGeometry( 60, 32, 16 );
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        container.appendChild( renderer.domElement );
+
+
+        window.addEventListener( 'resize', onWindowResize, false );
+
+    }
+
+    function onWindowResize() {
+
+        windowHalfX = window.innerWidth / 2,
+                windowHalfY = window.innerHeight / 2,
+
+                camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+    }
+
+    function onDocumentMouseMove(event) {
+
+        mouseX = ( event.clientX - windowHalfX ) * 10;
+        mouseY = ( event.clientY - windowHalfY ) * 10;
+
+    }
+
+    function onMouseWheel(event){
+        if(event.wheelDelta > 0){ //前滚
+           zoom-=100;
+        }else
+        {
+            zoom+=100;
+        }
+    }
+
+    function animate() {
+
+        requestAnimationFrame( animate );
+
+        render();
+
+    }
+
+    function render() {
+
+        var timer = 0.0001 * Date.now();
+
+        for ( var i = 0, il = spheres.length; i < il; i ++ ) {
+
+            var sphere = spheres[ i ];
+
+            //sphere.position.x = 5000 * Math.cos( timer + i );
+          //  sphere.position.x =5000*Math.cos( timer + i );
+            sphere.position.y -= 500 *0.01;
+            if( sphere.position.y<-5000){
+                sphere.position.y=5000;
+            }
+
+        }
+
+        camera.position.x += ( -mouseX - camera.position.x ) * .05;
+        camera.position.y += (  mouseY - camera.position.y ) * .05;
+        camera.position.z+=zoom;
+        zoom=0.0;
+        camera.lookAt( scene.position );
+        renderer.render( scene, camera );
+
+    }
+
+  </script>
+</body>
+
+</html>
