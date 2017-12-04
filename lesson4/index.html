@@ -37,7 +37,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
     animate();
 
     function init() {
-        // 创建一个div 作为容器
+
         container = document.createElement( 'div' );
         document.body.appendChild( container );
 
@@ -58,12 +58,44 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
         var geometry = new THREE.SphereBufferGeometry( 60, 32, 16 );
 
+      //   var textureCube = new THREE.CubeTextureLoader()
+      //           // .setPath( 'textures/cube/Park3Med/' )
+      //           .load( [
+      //   'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/RT.jpg',
+      //   'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/LF.jpg',
+      //   'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/TP.jpg',
+      //   'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/BT.jpg',
+      //   'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/BK.jpg',
+      //   'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/FR.jpg'
+      // ] );
+        // textureCube.mapping = THREE.CubeRefractionMapping;
+
+        // var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube, refractionRatio: 0.95 } );
+
+        // for ( var i = 0; i < 500; i ++ ) {
+
+        //     var mesh = new THREE.Mesh( geometry, material );
+
+        //     mesh.position.x = Math.random() * 10000 - 5000;
+        //     mesh.position.y = Math.random() * 10000 - 5000;
+        //     mesh.position.z = Math.random() * 10000 - 5000;
+
+        //     mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() * 3 + 1;
+
+        //     scene.add( mesh );
+
+        //     spheres.push( mesh );
+
+        // }
+
+        //
+
         renderer = new THREE.WebGLRenderer();
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setSize( window.innerWidth, window.innerHeight );
-        // renderer.domElement 在容器里面插入canvas dom
         container.appendChild( renderer.domElement );
 
+        //
 
         window.addEventListener( 'resize', onWindowResize, false );
 
@@ -97,7 +129,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
         }
     }
 
-    // 动画
     function animate() {
 
         requestAnimationFrame( animate );
@@ -106,7 +137,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
     }
 
-    // 渲染
     function render() {
 
         var timer = 0.0001 * Date.now();
@@ -133,6 +163,24 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
     }
 
+    // var scene, camera, renderer;
+
+    // var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    // var renderer = new THREE.WebGLRenderer();
+    // renderer.setSize(window.innerWidth, window.innerHeight);
+    // document.body.appendChild(renderer.domElement);
+
+    // scene = new THREE.Scene();
+    // scene.background = new THREE.CubeTextureLoader()
+    //   .load([
+    //     'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/RT.jpg',
+    //     'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/LF.jpg',
+    //     'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/TP.jpg',
+    //     'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/BT.jpg',
+    //     'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/BK.jpg',
+    //     'http://mankuhome.oss-cn-shanghai.aliyuncs.com/360image/22DBD51542EBE92C9B224598CBA6A610/FR.jpg'
+    //   ]);
+    // renderer.render(scene, camera);
   </script>
 </body>
 
